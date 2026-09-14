@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
         float xMove = Input.GetAxis("Horizontal");
         float yMove = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(xMove, yMove, 0);
+        Vector3 movement = new Vector3(xMove, yMove, -0.3f);
 
         transform.position += movement * moveSpeed * Time.deltaTime;
 
