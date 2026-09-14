@@ -47,7 +47,7 @@ public abstract class Item : MonoBehaviour
     [SerializeField]
     protected float moveSpeed = 5f;
     [SerializeField]
-    protected float pickupRange = 5f;
+    protected float pickupRange = 15f;
 
     private SpriteRenderer spriteRenderer;
     private static Transform playerTransform;
@@ -77,7 +77,12 @@ public abstract class Item : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
         if (distanceToPlayer <= pickupRange)
         {
+            Debug.Log($"Item {ITEM_NAME} is moving towards the player.");
             transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, moveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            Debug.Log($"Item {ITEM_NAME} is not within pickup range.");
         }
     }
 

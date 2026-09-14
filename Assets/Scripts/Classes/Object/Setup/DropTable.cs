@@ -36,7 +36,9 @@ public class DropTable : MonoBehaviour
                         0f
                     );
 
-                    Instantiate(entry.itemPrefab, position + offset, Quaternion.identity);
+                    Vector3 spawnPos = position + offset;
+                    spawnPos.z = -0.4f;
+                    Instantiate(entry.itemPrefab,spawnPos, Quaternion.identity);
                 }
             }
         }

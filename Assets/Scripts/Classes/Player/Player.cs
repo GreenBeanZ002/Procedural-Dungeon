@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
         Vector3 movement = new Vector3(xMove, yMove, -0.3f);
 
         transform.position += movement * moveSpeed * Time.deltaTime;
-
+        transform.position = new Vector3(transform.position.x, transform.position.y, -0.3f);
         animate();
     }
 
