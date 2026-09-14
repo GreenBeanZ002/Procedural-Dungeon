@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -22,12 +23,18 @@ public class TilemapDrawer : MonoBehaviour
 
     private void paintTiles(IEnumerable<Vector2Int> positions, Tilemap tilemap, TileBase tile)
     {
-        foreach (var pos in positions)
+        var positionList = positions.ToList();
+
+        foreach (var pos in positionList)
         {
             PaintSingleTile(tilemap, tile, pos);
         }
-    }
 
+/*        Vector3 spawnPos = (Vector3Int)positionList[UnityEngine.Random.Range(0, positionList.Count)];
+        spawnPos.z = -0.4f; // Set the z position to -0.4f
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.transform.position = spawnPos;*/
+    }
 
     private void PaintSingleTile(Tilemap tilemap, TileBase tile, Vector2Int pos)
     {
