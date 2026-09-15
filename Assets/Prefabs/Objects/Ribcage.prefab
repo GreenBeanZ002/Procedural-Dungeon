@@ -245,7 +245,11 @@ MonoBehaviour:
   - itemPrefab: {fileID: 3835229969044264722, guid: 8e781a2f338e99a449db1e385b93a88f, type: 3}
     dropChance: 10
     minAmount: 0
-    maxAmount: 1
+    maxAmount: 2
+  - itemPrefab: {fileID: 8026751362351825870, guid: cda55eb5d815b43409537a637b61bf1e, type: 3}
+    dropChance: 10
+    minAmount: 0
+    maxAmount: 2
   scatterRadius: 0.5
 --- !u!114 &-8450852452469450838
 MonoBehaviour:

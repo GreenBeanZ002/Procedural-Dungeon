@@ -248,12 +248,19 @@ MonoBehaviour:
   MONSTER_SPEED: 5
   MONSTER_DAMAGE: 0
   MONSTER_SPRITE: {fileID: -1881695777, guid: 3ebe9e4c5860f204f8b4c838941b9a86, type: 3}
+  MONSTER_HURT: {fileID: 0}
   player: {fileID: 0}
   detectionRange: 3
   loseRange: 5
   stopRange: 3
   repathInterval: 0.5
   tileSize: 1
+  canFlee: 1
+  fleeRange: 1.5
+  fleeDelay: 1.75
+  fleeExitRange: 3
+  fleeDistanceMin: 3
+  fleeDistanceMax: 20
   monsterSprite: {fileID: -1881695777, guid: 3ebe9e4c5860f204f8b4c838941b9a86, type: 3}
 --- !u!114 &8780026957078150523
 MonoBehaviour:
@@ -313,6 +320,10 @@ MonoBehaviour:
     maxAmount: 1
   - itemPrefab: {fileID: 3835229969044264722, guid: 8e781a2f338e99a449db1e385b93a88f, type: 3}
     dropChance: 25
+    minAmount: 0
+    maxAmount: 2
+  - itemPrefab: {fileID: 8026751362351825870, guid: cda55eb5d815b43409537a637b61bf1e, type: 3}
+    dropChance: 55
     minAmount: 0
     maxAmount: 2
   scatterRadius: 0.5

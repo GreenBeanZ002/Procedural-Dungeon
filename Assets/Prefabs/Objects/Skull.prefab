@@ -242,10 +242,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drops:
-  - itemPrefab: {fileID: 3835229969044264722, guid: 8e781a2f338e99a449db1e385b93a88f, type: 3}
+  - itemPrefab: {fileID: 8026751362351825870, guid: cda55eb5d815b43409537a637b61bf1e, type: 3}
     dropChance: 10
     minAmount: 0
-    maxAmount: 1
+    maxAmount: 3
   scatterRadius: 0.5
 --- !u!114 &-7612268337709848336
 MonoBehaviour:
