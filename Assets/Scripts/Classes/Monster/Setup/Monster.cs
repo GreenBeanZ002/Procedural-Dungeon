@@ -125,6 +125,7 @@ public abstract class Monster : MonoBehaviour
             }
             else
             {
+                return;
             }
         }
         else
