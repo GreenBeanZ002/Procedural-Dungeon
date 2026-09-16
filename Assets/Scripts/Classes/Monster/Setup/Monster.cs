@@ -27,38 +27,42 @@ public abstract class Monster : MonoBehaviour
 
     [SerializeField]
     protected AudioSource MONSTER_HURT;
-
     public AudioSource MonsterHurt => MONSTER_HURT;
 
     [Header("Detection & Pathfinding")]
-    [SerializeField] protected Transform player;
-    [SerializeField] protected float detectionRange = 12f;
-    [SerializeField] protected float loseRange = 8f;
-    [SerializeField] protected float stopRange = 3f;
-    [SerializeField] protected float repathInterval = 0.5f;
-    [SerializeField] protected float tileSize = 0.5f;
+    [SerializeField]
+    protected float DETECTION_RANGE = 12f;
 
-    [Header("Flee Behavior")]
-    [SerializeField] protected bool canFlee = true;
-    [SerializeField] protected float fleeRange = 1.5f;       
-    [SerializeField] protected float fleeDelay = 0.5f;      
-    [SerializeField] protected float fleeExitRange = 3f;      
-    [SerializeField] protected float fleeDistanceMin = 5f;    
-    [SerializeField] protected float fleeDistanceMax = 15f;   
+    public float DetectionRange => DETECTION_RANGE;
+
+    [SerializeField]
+    protected float LOSE_RANGE = 8f;
+    public float LoseRange => LOSE_RANGE;
+
+    [SerializeField]
+    protected float STOP_RANGE = 3f;
+    public float StopRange => STOP_RANGE;
+
+    [SerializeField]
+    protected float REPATH_INTERVAL = 0.5f;
+    public float RepathInterval => REPATH_INTERVAL;
+
+    [SerializeField]
+    protected float TILE_SIZE = 0.5f;
+    public float TileSize => TILE_SIZE; 
+
+
+    [SerializeField] protected Transform player;
 
     [Header("Other")]
     private DropTable dropTable;
     private SpriteRenderer spriteRenderer;
-    private PathfindingUtils pathfinder;
 
-    private List<Vector2Int> path;
-    private int pathIndex;
-    private float repathTimer;
-    private bool isChasing = false;
-
-    private float closeTimer = 0f;
-    private bool isFleeing = false;
-    private float currentFleeDistance;
+    protected PathfindingUtils pathfinder;
+    protected List<Vector2Int> path;
+    protected int pathIndex;
+    protected float repathTimer;
+    protected bool isChasing = false;
 
     protected virtual void Awake()
     {
@@ -77,48 +81,15 @@ public abstract class Monster : MonoBehaviour
     {
         if (player == null) return;
 
+        if (HandleCustomBehavior()) return;
+
+        if (SkipDefaultChase) return;
+
         float sqrDist = (player.position - transform.position).sqrMagnitude;
-
-        if (canFlee)
-        {
-            if (sqrDist <= fleeRange * fleeRange)
-            {
-                closeTimer += Time.deltaTime;
-                if (!isFleeing && closeTimer >= fleeDelay)
-                {
-                    isFleeing = true;
-                    isChasing = false;
-                    currentFleeDistance = Random.Range(fleeDistanceMin, fleeDistanceMax);
-
-                }
-            }
-            else
-            {
-                closeTimer = 0f;
-
-                if (isFleeing && sqrDist > fleeExitRange * fleeExitRange)
-                {
-                    isFleeing = false;
-                }
-            }
-        }
-
-        if (isFleeing)
-        {
-            repathTimer -= Time.deltaTime;
-            if (repathTimer <= 0f)
-            {
-                RepathFlee();
-                repathTimer = repathInterval;
-            }
-
-            FollowPath();
-            return; 
-        }
 
         if (!isChasing)
         {
-            if (sqrDist <= detectionRange * detectionRange)
+            if (sqrDist <= DETECTION_RANGE * DETECTION_RANGE)
             {
                 isChasing = true;
                 repathTimer = 0f;
@@ -130,7 +101,7 @@ public abstract class Monster : MonoBehaviour
         }
         else
         {
-            if (sqrDist > loseRange * loseRange)
+            if (sqrDist > LOSE_RANGE * LOSE_RANGE)
             {
                 isChasing = false;
                 path = null;
@@ -138,13 +109,13 @@ public abstract class Monster : MonoBehaviour
             }
         }
 
-        bool withinStopRange = sqrDist <= stopRange * stopRange;
+        bool withinStopRange = sqrDist <= STOP_RANGE * STOP_RANGE;
 
         repathTimer -= Time.deltaTime;
         if (repathTimer <= 0f)
         {
             Repath();
-            repathTimer = repathInterval;
+            repathTimer = REPATH_INTERVAL;
         }
 
         if (!withinStopRange)
@@ -154,7 +125,14 @@ public abstract class Monster : MonoBehaviour
 
     }
 
-    private void Repath()
+    protected virtual bool HandleCustomBehavior()
+    {
+        return false;
+    }
+
+    protected virtual bool SkipDefaultChase => false;
+
+    protected void Repath()
     {
         if (pathfinder == null)
         {
@@ -168,9 +146,9 @@ public abstract class Monster : MonoBehaviour
         Vector2Int playerGrid = WorldToGrid(player.position);
 
         var newPath = PathfindingUtils.FindPath(start, playerGrid, walkable);
-        if (newPath == null || newPath.Count == 0) return; 
+        if (newPath == null || newPath.Count == 0) return;
 
-        int trim = Mathf.Max(0, Mathf.RoundToInt(stopRange / tileSize));
+        int trim = Mathf.Max(0, Mathf.RoundToInt(STOP_RANGE / TILE_SIZE));
         if (trim > 0 && newPath.Count > trim)
             newPath.RemoveRange(newPath.Count - trim, trim);
 
@@ -178,91 +156,7 @@ public abstract class Monster : MonoBehaviour
         pathIndex = 0;
     }
 
-    private void RepathFlee()
-    {
-        if (pathfinder == null)
-        {
-            Debug.LogWarning("pathfinder is null!");
-            return;
-        }
-
-        var walkable = pathfinder.GetWalkableTiles();
-
-        Vector2Int start = WorldToGrid(transform.position);
-        Vector2Int playerGrid = WorldToGrid(player.position);
-        Vector2Int target = GetFleeTile(playerGrid, start, walkable);
-
-        var newPath = PathfindingUtils.FindPath(start, target, walkable);
-        if (newPath == null || newPath.Count == 0) return; 
-
-        path = newPath;
-        pathIndex = 0;
-    }
-
-    private Vector2Int GetFleeTile(Vector2Int playerGrid, Vector2Int myGrid, HashSet<Vector2Int> walkable)
-    {
-        Vector2 dir = (Vector2)(myGrid - playerGrid);
-        if (dir.sqrMagnitude < 0.01f) dir = Random.insideUnitCircle.normalized;
-        dir.Normalize();
-
-        int fleeTiles = Mathf.Max(1, Mathf.RoundToInt(currentFleeDistance / tileSize));
-
-
-        float[] angleOffsetsDeg = { 0f, 20f, -20f, 40f, -40f, 60f, -60f, 90f, -90f };
-
-        float currentSqrDistToPlayer = ((Vector2)(myGrid - playerGrid)).sqrMagnitude;
-
-        foreach (float angleDeg in angleOffsetsDeg)
-        {
-            Vector2 rotatedDir = Rotate(dir, angleDeg);
-            Vector2Int offset = new Vector2Int(
-                Mathf.RoundToInt(rotatedDir.x * fleeTiles),
-                Mathf.RoundToInt(rotatedDir.y * fleeTiles)
-            );
-            Vector2Int candidate = myGrid + offset;
-
-            if (!walkable.Contains(candidate)) continue;
-
-
-            float candidateSqrDist = ((Vector2)(candidate - playerGrid)).sqrMagnitude;
-            if (candidateSqrDist < currentSqrDistToPlayer) continue;
-
-            return candidate;
-        }
-
-
-        for (int shortenedTiles = fleeTiles - 1; shortenedTiles >= 1; shortenedTiles--)
-        {
-            foreach (float angleDeg in angleOffsetsDeg)
-            {
-                Vector2 rotatedDir = Rotate(dir, angleDeg);
-                Vector2Int offset = new Vector2Int(
-                    Mathf.RoundToInt(rotatedDir.x * shortenedTiles),
-                    Mathf.RoundToInt(rotatedDir.y * shortenedTiles)
-                );
-                Vector2Int candidate = myGrid + offset;
-
-                if (!walkable.Contains(candidate)) continue;
-
-                float candidateSqrDist = ((Vector2)(candidate - playerGrid)).sqrMagnitude;
-                if (candidateSqrDist < currentSqrDistToPlayer) continue;
-
-                return candidate;
-            }
-        }
-
-        return myGrid;
-    }
-
-    private static Vector2 Rotate(Vector2 v, float degrees)
-    {
-        float rad = degrees * Mathf.Deg2Rad;
-        float cos = Mathf.Cos(rad);
-        float sin = Mathf.Sin(rad);
-        return new Vector2(v.x * cos - v.y * sin, v.x * sin + v.y * cos);
-    }
-
-    private void FollowPath()
+    protected void FollowPath()
     {
         if (path == null || pathIndex >= path.Count) return;
 
@@ -273,11 +167,11 @@ public abstract class Monster : MonoBehaviour
             pathIndex++;
     }
 
-    private Vector2Int WorldToGrid(Vector3 worldPos) =>
-        new Vector2Int(Mathf.RoundToInt(worldPos.x / tileSize), Mathf.RoundToInt(worldPos.y / tileSize));
+    protected Vector2Int WorldToGrid(Vector3 worldPos) =>
+        new Vector2Int(Mathf.RoundToInt(worldPos.x / TILE_SIZE), Mathf.RoundToInt(worldPos.y / TILE_SIZE));
 
-    private Vector3 GridToWorld(Vector2Int gridPos) =>
-        new Vector3(gridPos.x * tileSize, gridPos.y * tileSize, -0.2f);
+    protected Vector3 GridToWorld(Vector2Int gridPos) =>
+        new Vector3(gridPos.x * TILE_SIZE, gridPos.y * TILE_SIZE, -0.2f);
 
     protected void SetupSprite()
     {
@@ -308,14 +202,16 @@ public abstract class Monster : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, detectionRange);
+        Gizmos.DrawWireSphere(transform.position, DETECTION_RANGE);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, loseRange);
+        Gizmos.DrawWireSphere(transform.position, LOSE_RANGE);
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, stopRange);
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(transform.position, fleeRange);
+        Gizmos.DrawWireSphere(transform.position, STOP_RANGE);
+
+        OnDrawGizmosSelectedExtra();
     }
+
+    protected virtual void OnDrawGizmosSelectedExtra() { }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

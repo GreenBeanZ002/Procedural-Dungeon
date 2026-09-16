@@ -97,22 +97,22 @@ public class Player : MonoBehaviour
     {
         if (direction == 1) // up
         {
-            GameObject temp = Instantiate(attackObj, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 0.4f, gameObject.transform.position.z), Quaternion.identity);
+            GameObject temp = Instantiate(attackObj, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1f, gameObject.transform.position.z), Quaternion.identity);
             Destroy(temp, 0.1f);
         }
         if (direction == 2) // down
         {
-            GameObject temp = Instantiate(attackObj, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 0.4f, gameObject.transform.position.z), Quaternion.identity);
+            GameObject temp = Instantiate(attackObj, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 1f, gameObject.transform.position.z), Quaternion.identity);
             Destroy(temp, 0.1f);
         }
         if (direction == 3) // left
         {
-            GameObject temp = Instantiate(attackObj, new Vector3(gameObject.transform.position.x - 0.4f, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
+            GameObject temp = Instantiate(attackObj, new Vector3(gameObject.transform.position.x - 1f, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
             Destroy(temp, 0.1f);
         }
         if (direction == 4) // right 
         {
-            GameObject temp = Instantiate(attackObj, new Vector3(gameObject.transform.position.x + 0.4f, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
+            GameObject temp = Instantiate(attackObj, new Vector3(gameObject.transform.position.x + 1f, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
             Destroy(temp, 0.1f);
         }
 
