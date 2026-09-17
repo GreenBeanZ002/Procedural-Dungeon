@@ -56,9 +56,6 @@ public class ObjectUtils :MonoBehaviour
 
         return null;
     }
-    //Object Item Drop function
-
-    //Object break sound thing
 }
 
 

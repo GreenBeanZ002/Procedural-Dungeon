@@ -11,6 +11,13 @@ public class ObjectEntry
     public WorldObject objectPrefab;
     [Range(0, 100)] public float spawnChance;
 }
+
+[System.Serializable]
+public class MonsterEntry
+{
+    public GameObject monsterPrefab;
+    [Range(0, 100)] public float spawnChance;
+}
 public class RandomWalkMapGenerator : DungeonGenerator
 {
     public static HashSet<Vector2Int> floorPos = new HashSet<Vector2Int>();
@@ -27,7 +34,7 @@ public class RandomWalkMapGenerator : DungeonGenerator
     private List<ObjectEntry> objectsToSpawn; 
 
     [SerializeField]
-    private GameObject monPrefab1; //redo like objects soon
+    private List<MonsterEntry> monstersToSpawn; 
 
     [SerializeField]
     private ObjectUtils objDraw;
@@ -50,7 +57,7 @@ public class RandomWalkMapGenerator : DungeonGenerator
         tilemapDraw.paintFloorTiles(floorPos);
         WallDrawer.DrawWalls(floorPos, tilemapDraw);
         objDraw.drawObjects(floorPos, player, objectsToSpawn);
-        MonsterUtils.DrawMonsters(floorPos, monPrefab1);
+        MonsterUtils.DrawMonsters(floorPos, monstersToSpawn);
     }
 
     protected HashSet<Vector2Int> RunRandomWalk()
