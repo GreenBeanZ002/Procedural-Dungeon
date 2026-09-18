@@ -79,6 +79,7 @@ public abstract class Monster : MonoBehaviour
 
     protected virtual void Update()
     {
+        animateMonster();
         if (player == null) return;
 
         if (HandleCustomBehavior()) return;
@@ -196,6 +197,8 @@ public abstract class Monster : MonoBehaviour
         dropTable.DropAll(transform.position);
         Destroy(gameObject);
     }
+
+    protected abstract void animateMonster();
 
     protected abstract void SetDefaults();
 

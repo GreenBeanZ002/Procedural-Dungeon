@@ -321,8 +321,15 @@ MonoBehaviour:
   TILE_SIZE: 0.5
   player: {fileID: 0}
   monsterSprite: {fileID: 1281428316, guid: 8e4feab9817946d45a401f3292fad511, type: 3}
-  fleeRange: 1.5
+  fleeRange: 3
   fleeDelay: 0.5
   fleeExitRange: 3
   fleeDistanceMin: 5
   fleeDistanceMax: 15
+  animationFrames:
+  - sprite: {fileID: 1281428316, guid: 8e4feab9817946d45a401f3292fad511, type: 3}
+    duration: 0.2
+  - sprite: {fileID: -600338440, guid: 8e4feab9817946d45a401f3292fad511, type: 3}
+    duration: 0.2
+  - sprite: {fileID: 303935185, guid: 8e4feab9817946d45a401f3292fad511, type: 3}
+    duration: 0.2

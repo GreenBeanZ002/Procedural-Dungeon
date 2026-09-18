@@ -56,6 +56,7 @@ public abstract class Projectile : MonoBehaviour
     public void SetDamage(int amount)
     {
         PROJECTILE_DAMAGE = amount;  
+        
     }
 
     protected virtual void Update()

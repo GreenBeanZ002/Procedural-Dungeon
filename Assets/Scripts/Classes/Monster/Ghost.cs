@@ -1,7 +1,15 @@
 using System.Collections.Generic;
-
+using System.Collections;
 using UnityEngine;
+using System.Threading;
 
+
+[System.Serializable]
+public class AnimationFrame
+{
+    public Sprite sprite;
+    public float duration;
+}
 public class Ghost : Monster
 {
     [SerializeField] private Sprite monsterSprite;
@@ -16,6 +24,12 @@ public class Ghost : Monster
     private float closeTimer = 0f;
     private bool isFleeing = false;
     private float currentFleeDistance;
+    private Coroutine animCoroutine;
+
+    [SerializeField]
+    protected List<AnimationFrame> animationFrames;
+
+    
 
     protected override void SetDefaults()
     {
@@ -149,5 +163,29 @@ public class Ghost : Monster
     {
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, fleeRange);
+    }
+
+    protected override void animateMonster()
+    {
+        if (animCoroutine == null)
+            animCoroutine = StartCoroutine(GhostAnim());
+    }
+
+    IEnumerator GhostAnim()
+    {
+        while (true)
+        {
+            foreach (AnimationFrame aFrame in animationFrames)
+            {
+                float timer = aFrame.duration;
+                GetComponent<SpriteRenderer>().sprite = aFrame.sprite;
+
+                while (timer > 0)
+                {
+                    timer -= Time.deltaTime;
+                    yield return null;
+                }
+            }
+        }
     }
 }

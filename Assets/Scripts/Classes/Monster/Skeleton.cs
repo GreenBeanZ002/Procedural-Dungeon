@@ -152,4 +152,9 @@ public class Skeleton : Monster
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, fleeRange);
     }
+
+    protected override void animateMonster()
+    {
+        // Implement animation logic for the Skeleton movement logic here later
+    }
 }
