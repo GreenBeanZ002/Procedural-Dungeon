@@ -15,8 +15,16 @@ public class Skeleton : Monster
     [SerializeField] private float fleeDistanceMax = 15f;
 
     private float closeTimer = 0f;
+    float attackTimer = 2f;
     private bool isFleeing = false;
     private float currentFleeDistance;
+
+    [Header("Attack")]
+    [SerializeField]
+    private GameObject projectilePrefab;
+    private Projectile projectileScript;
+    [SerializeField]
+    private Sprite projectileSprite;
 
     protected override void SetDefaults()
     {
@@ -104,7 +112,7 @@ public class Skeleton : Monster
             Vector2 rotatedDir = Rotate(dir, angleDeg);
             Vector2Int offset = new Vector2Int(
                 Mathf.RoundToInt(rotatedDir.x * fleeTiles),
-                Mathf.RoundToInt(rotatedDir.y * fleeTiles)
+                Mathf.RoundToInt(rotatedDir. y * fleeTiles)
             );
             Vector2Int candidate = myGrid + offset;
 
@@ -157,4 +165,25 @@ public class Skeleton : Monster
     {
         // Implement animation logic for the Skeleton movement logic here later
     }
+
+    protected override void Awake()
+    {
+        base.Awake(); // make sure Monster's Awake() still runs (player assignment etc.)
+        projectileScript = projectilePrefab.GetComponent<Projectile>();
+    }
+
+    protected override void attackPlayer()
+    {
+        if (!isFleeing)
+        {
+            if (attackTimer <= 0f)
+            {
+                projectileScript.summonProjectile(projectilePrefab, 1, transform.position, player.position, projectileSprite);
+                attackTimer = 2f;
+            }
+            attackTimer -= Time.deltaTime;
+        }
+
+    }
+
 }

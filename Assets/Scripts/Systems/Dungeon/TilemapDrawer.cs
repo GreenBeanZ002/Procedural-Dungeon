@@ -46,6 +46,7 @@ public class TilemapDrawer : MonoBehaviour
         floorTilemap.ClearAllTiles();
         wallMap.ClearAllTiles();
         ClearAllObjects();
+        ClearAllMonsters();
     }
 
     internal void paintWall(Vector2Int pos)
@@ -60,6 +61,15 @@ public class TilemapDrawer : MonoBehaviour
         foreach (var obj in objects)
         {
             Destroy(obj);
+        }
+    }
+
+    public void ClearAllMonsters()
+    {
+        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+        foreach (var monster in monsters)
+        {
+            Destroy(monster);
         }
     }
 }

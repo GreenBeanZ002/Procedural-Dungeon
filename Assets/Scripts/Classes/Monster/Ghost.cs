@@ -171,6 +171,11 @@ public class Ghost : Monster
             animCoroutine = StartCoroutine(GhostAnim());
     }
 
+    protected override void attackPlayer()
+    {
+        //no attacks needed
+    }
+
     IEnumerator GhostAnim()
     {
         while (true)

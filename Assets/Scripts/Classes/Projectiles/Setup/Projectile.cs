@@ -22,7 +22,7 @@ public abstract class Projectile : MonoBehaviour
     [SerializeField]
     protected float PROJECTILE_SPEED;
 
-    public float ProjectileSpeed => PROJECTILE_SPEED; 
+    public float ProjectileSpeed => PROJECTILE_SPEED;
 
     [SerializeField]
     protected int PROJECTILE_DAMAGE;
@@ -30,9 +30,26 @@ public abstract class Projectile : MonoBehaviour
     public int ProjectileDamage => PROJECTILE_DAMAGE;
 
 
-    
+    [SerializeField]
+    protected float PROJECTILE_LIFETIME = 5f;
+
+    public float ProjectileLifetime => PROJECTILE_LIFETIME;
+
+    [SerializeField]
+    protected bool PROJECTILE_USE_LIFETIME = true;
+
+    public bool ProjectileUseLifetime => PROJECTILE_USE_LIFETIME;
+
+    [SerializeField]
+    protected float PROJECTILE_COLLISION_DELAY = 0.44f;
+
+    public float ProjectileCollisionDelay => PROJECTILE_COLLISION_DELAY;
+
 
     private SpriteRenderer spriteRenderer;
+    private Collider2D projectileCollider;
+
+
 
 
 
@@ -40,23 +57,34 @@ public abstract class Projectile : MonoBehaviour
     {
         setDefaults();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        setupIcon();
-    }
+        projectileCollider = GetComponent<Collider2D>();
+        SetupSprite();
 
-    protected void setupIcon()
-    {
-        if (spriteRenderer != null)
+        if (PROJECTILE_USE_LIFETIME)
         {
-            spriteRenderer.sprite = PROJECTILE_ICON;
+            Destroy(gameObject, PROJECTILE_LIFETIME);
+        }
+
+        if (PROJECTILE_COLLISION_DELAY > 0f && projectileCollider != null)
+        {
+            projectileCollider.enabled = false;
+            StartCoroutine(EnableCollisionAfterDelay());
         }
     }
+
+    private IEnumerator EnableCollisionAfterDelay()
+    {
+        yield return new WaitForSeconds(PROJECTILE_COLLISION_DELAY);
+        projectileCollider.enabled = true;
+    }
+
 
     protected abstract void setDefaults();
 
     public void SetDamage(int amount)
     {
-        PROJECTILE_DAMAGE = amount;  
-        
+        PROJECTILE_DAMAGE = amount;
+
     }
 
     protected virtual void Update()
@@ -65,11 +93,36 @@ public abstract class Projectile : MonoBehaviour
         moveProjectile(ProjectileDirection, ProjectileSpeed);
     }
 
+
     protected abstract void animateProjectile();
 
     private void moveProjectile(Vector2 projectileDirection, float moveSpeed)
     {
         Vector2 movement = projectileDirection.normalized * moveSpeed * Time.deltaTime;
-        transform.position = new Vector3(transform.position.x + movement.x,transform.position.y + movement.y,-0.2f);
+        transform.position = new Vector3(transform.position.x + movement.x, transform.position.y + movement.y, -0.2f);
+    }
+
+    public virtual void summonProjectile(GameObject prefab, int count, Vector3 spawnPosition, Vector3 target, Sprite projectileSprite)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            GameObject spawned = Instantiate(prefab, spawnPosition, Quaternion.identity);
+            Projectile spawnedScript = spawned.GetComponent<Projectile>();
+            spawnedScript.PROJECTILE_DIRECTION = getDirection(spawnPosition, target);
+            spawnedScript.GetComponent<SpriteRenderer>().sprite = projectileSprite;
+        }
+    }
+
+    protected void SetupSprite()
+    {
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sprite = PROJECTILE_ICON;
+        }
+    }
+    private Vector3 getDirection(Vector3 start, Vector3 target)
+    {
+        Vector3 direction = (target - start).normalized;
+        return direction;
     }
 }

@@ -23,7 +23,6 @@ public class RandomWalkMapGenerator : DungeonGenerator
     public static HashSet<Vector2Int> floorPos = new HashSet<Vector2Int>();
     public static HashSet<Vector2Int> getFloorPositions()
     {
-        Debug.Log($"getFloorPositions called, returning {floorPos.Count} tiles");
         return floorPos;
     }
 

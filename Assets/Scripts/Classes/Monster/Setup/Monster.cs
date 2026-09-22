@@ -123,8 +123,15 @@ public abstract class Monster : MonoBehaviour
         {
             FollowPath();
         }
+        if (withinStopRange)
+        {
+            attackPlayer();
+        }
+
 
     }
+    protected abstract void attackPlayer();
+
 
     protected virtual bool HandleCustomBehavior()
     {

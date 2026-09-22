@@ -8,6 +8,8 @@ public class HealthBarLogic : MonoBehaviour
 
     [SerializeField] private RectTransform healthBar;
     // Start is called before the first frame update
+
+
     private void SetMaxHealth()
     {
         maxHealth = HealthScript.GetMaxHealth();
@@ -30,4 +32,10 @@ public class HealthBarLogic : MonoBehaviour
     {
         setWidth();
     }
+
+    private void DeathLogic()
+    { 
+        //add logic for dying
+    }
+
 }
