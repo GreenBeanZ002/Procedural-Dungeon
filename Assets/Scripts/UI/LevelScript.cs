@@ -35,4 +35,6 @@ public class LevelUtils : MonoBehaviour
 
 
     public static void AddExp(int amtToAdd)    {        exp += amtToAdd;    }
+
+    public static void ResetExp() { exp = 0; }
 }

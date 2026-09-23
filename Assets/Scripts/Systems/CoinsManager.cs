@@ -40,4 +40,9 @@ public class coinsManager : MonoBehaviour
         coinManager.GetComponent<AudioSource>().Play();
         coins += Amt;
     }
+
+    public void resetCoins()
+    {
+        coins = 0;
+    }
 }

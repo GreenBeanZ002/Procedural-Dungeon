@@ -253,10 +253,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: -0.35508022
-    y: -0.40442654
-    width: 1.71123
-    height: 1.8108652
+    x: -0.3354232
+    y: -0.41463414
+    width: 1.6718913
+    height: 1.8292682
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -3180,6 +3180,7 @@ GameObject:
   - component: {fileID: 1862440590}
   - component: {fileID: 1862440591}
   - component: {fileID: 1862440592}
+  - component: {fileID: 1862440593}
   m_Layer: 0
   m_Name: Player
   m_TagString: player
@@ -3375,6 +3376,51 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862440584}
   m_Enabled: 1
+--- !u!61 &1862440593
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862440584}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.12, y: 0.15}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.12, y: 0.15}
+  m_EdgeRadius: 0
 --- !u!1 &1939156136
 GameObject:
   m_ObjectHideFlags: 0
