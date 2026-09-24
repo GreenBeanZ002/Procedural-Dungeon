@@ -57,6 +57,11 @@ public class RandomWalkMapGenerator : DungeonGenerator
         WallDrawer.DrawWalls(floorPos, tilemapDraw);
         objDraw.drawObjects(floorPos, player, objectsToSpawn);
         MonsterUtils.DrawMonsters(floorPos, monstersToSpawn);
+
+        if(player != null)
+        {
+            player.transform.position = new Vector3(0, 0, -0.3f);
+        }
     }
 
     protected HashSet<Vector2Int> RunRandomWalk()
