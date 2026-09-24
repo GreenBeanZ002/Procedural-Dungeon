@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    public int GetDamage()    {        return PLAYER_DAMAGE;    }
+    public int GetDamage() { return PLAYER_DAMAGE; }
     [Header("Walking Animation")]
     [SerializeField]
     private float moveSpeed = 5f;
@@ -45,9 +45,15 @@ public class Player : MonoBehaviour
 
     public int playerDamage => PLAYER_DAMAGE;
 
+
+    [SerializeField]
+    private float attackDelay = 0.5f;
+
+    private bool isAttacking = false;
+
     void Awake()
     {
-        
+
     }
 
     void Update()
@@ -64,35 +70,43 @@ public class Player : MonoBehaviour
 
     private void animate()
     {
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        if (!isAttacking)
         {
-            orientation = 1;
-            gameObject.GetComponent<SpriteRenderer>().sprite = upSprite;
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            {
+                orientation = 1;
+                gameObject.GetComponent<SpriteRenderer>().sprite = upSprite;
+            }
+            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            {
+                orientation = 2;
+                gameObject.GetComponent<SpriteRenderer>().sprite = downSprite;
+            }
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                orientation = 3;
+                gameObject.GetComponent<SpriteRenderer>().sprite = leftSprite;
+            }
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                orientation = 4;
+                gameObject.GetComponent<SpriteRenderer>().sprite = rightSprite;
+            }
         }
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-        {
-            orientation = 2;
-            gameObject.GetComponent<SpriteRenderer>().sprite = downSprite;
-        }
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        {
-            orientation = 3;
-            gameObject.GetComponent<SpriteRenderer>().sprite = leftSprite;
-        }
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-        {
-            orientation = 4;
-            gameObject.GetComponent<SpriteRenderer>().sprite = rightSprite;
-        }
-        if (Input.GetKey(KeyCode.Space))
-        {
-            StartCoroutine(AttackRoutine(orientation, gameObject.GetComponent<SpriteRenderer>()));
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
+
+        if (Input.GetKeyDown(KeyCode.Space) && attackDelay <= 0f)
         {
             attack(orientation);
+            StartCoroutine(AttackRoutine(orientation, gameObject.GetComponent<SpriteRenderer>()));
+            attackDelay = 0.5f;
+        }
+
+        if (attackDelay > 0f)
+        {
+            attackDelay -= Time.deltaTime;
         }
     }
+
     void attack(int direction)
     {
         if (direction == 1) // up
@@ -115,15 +129,11 @@ public class Player : MonoBehaviour
             GameObject temp = Instantiate(attackObj, new Vector3(gameObject.transform.position.x + 1f, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
             Destroy(temp, 0.1f);
         }
-
-
-
-
     }
 
     IEnumerator AttackRoutine(int direction, SpriteRenderer spriteRend)
     {
-
+        isAttacking = true;
 
         if (direction == 1)
         {
@@ -157,6 +167,8 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             spriteRend.sprite = rightSprite;
         }
+
+        isAttacking = false;
     }
 
     public void movePlayerToPos(Vector3 pos)
