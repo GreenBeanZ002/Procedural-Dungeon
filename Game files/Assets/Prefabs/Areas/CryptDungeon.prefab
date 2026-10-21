@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3458301052032906907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7767276411069577681}
+  - component: {fileID: 7485564678618894371}
+  m_Layer: 0
+  m_Name: CryptDungeon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7767276411069577681
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3458301052032906907}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 16.138412, y: -5.5163374, z: -0.18760136}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7485564678618894371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3458301052032906907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d26ca6caf2fc11d4e8b5108ac06660ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsToSpawn:
+  - objectPrefab: {fileID: -7612268337709848336, guid: a5a25e81d18ef90479c90227a5ee2df4, type: 3}
+    spawnChance: 2.5
+  - objectPrefab: {fileID: -8450852452469450838, guid: 15dd4916c921fd446a08d0d28335b7fc, type: 3}
+    spawnChance: 2.5
+  - objectPrefab: {fileID: 3228822185906999920, guid: d58c033fa8a1d2e48bdb829c828f3596, type: 3}
+    spawnChance: 1
+  - objectPrefab: {fileID: -9201682650092327893, guid: c5707e7d54b64c944a0baa8ffbbc3162, type: 3}
+    spawnChance: 10
+  - objectPrefab: {fileID: 2045068664370202152, guid: 380419a1177da2e47a2543147e3de20b, type: 3}
+    spawnChance: 1
+  monstersToSpawn:
+  - monsterPrefab: {fileID: 8686422952614682872, guid: 5dce8737b46916048b2fb6bba0309c44, type: 3}
+    spawnChance: 7
+  - monsterPrefab: {fileID: 8686422952614682872, guid: bb3071da18cd709458577366ed26029a, type: 3}
+    spawnChance: 1
+  floorTilesToSpawn:
+  - floorTile: {fileID: 11400000, guid: 471853985ed4b5242ad12af71ace0cf6, type: 2}
+    spawnChance: 100
+  wallTilesToSpawn:
+  - wallTile: {fileID: 11400000, guid: 22c9f328675568942a63b2770a6a63dc, type: 2}
+    spawnChance: 50
+  - wallTile: {fileID: 11400000, guid: 4ca55881ba0901544934d33a5252ef98, type: 2}
+    spawnChance: 50
+  AREA_NAME: Crypt
+  LEVEL_COUNT: 10
+  AREa_DEFAULT: 1
+  BOSS_LEVEL: 0

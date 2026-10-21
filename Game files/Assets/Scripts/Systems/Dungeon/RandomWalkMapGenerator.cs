@@ -5,19 +5,6 @@ using System.Linq;
 using UnityEngine;
 using Rand = UnityEngine.Random;
 
-[System.Serializable]
-public class ObjectEntry
-{
-    public WorldObject objectPrefab;
-    [Range(0, 100)] public float spawnChance;
-}
-
-[System.Serializable]
-public class MonsterEntry
-{
-    public GameObject monsterPrefab;
-    [Range(0, 100)] public float spawnChance;
-}
 public class RandomWalkMapGenerator : DungeonGenerator
 {
     public static HashSet<Vector2Int> floorPos = new HashSet<Vector2Int>();
@@ -29,14 +16,12 @@ public class RandomWalkMapGenerator : DungeonGenerator
     [SerializeField]
     private RandomWalkData walkParameters;
 
-    [SerializeField]
-    private List<ObjectEntry> objectsToSpawn; 
-
-    [SerializeField]
-    private List<MonsterEntry> monstersToSpawn; 
 
     [SerializeField]
     private ObjectUtils objDraw;
+
+    [SerializeField]
+    private DungeonArea area;
 
     [SerializeField]
     private Player player;
@@ -45,18 +30,18 @@ public class RandomWalkMapGenerator : DungeonGenerator
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            GenerateDungeon();
+            GenerateDungeon(area);
         }
     }
 
-    protected override void RunProceduralGeneration()
+    protected override void RunProceduralGeneration(List<WallEntry> walls, List<FloorEntry> floors, List<ObjectEntry> objects, List<MonsterEntry> monsters)
     {
         tilemapDraw.Clear();
         floorPos = RunRandomWalk();
-        tilemapDraw.paintFloorTiles(floorPos);
-        WallDrawer.DrawWalls(floorPos, tilemapDraw);
-        objDraw.drawObjects(floorPos, player, objectsToSpawn);
-        MonsterUtils.DrawMonsters(floorPos, monstersToSpawn);
+        tilemapDraw.paintFloorTiles(floorPos, floors);
+        WallDrawer.DrawWalls(floorPos, tilemapDraw, walls);
+        objDraw.drawObjects(floorPos, player, objects);
+        MonsterUtils.DrawMonsters(floorPos, monsters);
 
         if(player != null)
         {

@@ -5,15 +5,17 @@ using UnityEngine;
 
 public abstract class DungeonGenerator : MonoBehaviour
 {
+ 
     [SerializeField] 
     protected TilemapDrawer tilemapDraw= null;
     [SerializeField] 
     protected Vector2Int startPos = Vector2Int.zero;
 
-    public void GenerateDungeon()
+    public void GenerateDungeon(DungeonArea area)
     {
         tilemapDraw.Clear();
-        RunProceduralGeneration();
+        RunProceduralGeneration(area.wallTilesToSpawn, area.floorTilesToSpawn, area.objectsToSpawn, area.monstersToSpawn);
     }
-    protected abstract void RunProceduralGeneration();
+    protected abstract void RunProceduralGeneration(List<WallEntry> walls,List<FloorEntry> floors,List<ObjectEntry> objects,List<MonsterEntry> monsters);
+
 }
