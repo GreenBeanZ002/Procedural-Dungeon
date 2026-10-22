@@ -253,10 +253,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: -0.3354232
-    y: -0.41463414
-    width: 1.6718913
-    height: 1.8292682
+    x: -0.32815737
+    y: -0.40442654
+    width: 1.6563147
+    height: 1.8108652
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -856,8 +856,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorTilemap: {fileID: 1939156137}
   wallMap: {fileID: 2064301063}
-  floorTile: {fileID: 11400000, guid: 471853985ed4b5242ad12af71ace0cf6, type: 2}
-  topWall: {fileID: 11400000, guid: 22c9f328675568942a63b2770a6a63dc, type: 2}
 --- !u!4 &413007190
 Transform:
   m_ObjectHideFlags: 0
@@ -2475,23 +2473,8 @@ MonoBehaviour:
   tilemapDraw: {fileID: 413007189}
   startPos: {x: 0, y: 0}
   walkParameters: {fileID: 11400000, guid: f588ea5f7c736f54991176f9bc0a4e76, type: 2}
-  objectsToSpawn:
-  - objectPrefab: {fileID: -9201682650092327893, guid: c5707e7d54b64c944a0baa8ffbbc3162, type: 3}
-    spawnChance: 50
-  - objectPrefab: {fileID: 3228822185906999920, guid: d58c033fa8a1d2e48bdb829c828f3596, type: 3}
-    spawnChance: 30
-  - objectPrefab: {fileID: 2045068664370202152, guid: 380419a1177da2e47a2543147e3de20b, type: 3}
-    spawnChance: 10
-  - objectPrefab: {fileID: -7612268337709848336, guid: a5a25e81d18ef90479c90227a5ee2df4, type: 3}
-    spawnChance: 5
-  - objectPrefab: {fileID: -8450852452469450838, guid: 15dd4916c921fd446a08d0d28335b7fc, type: 3}
-    spawnChance: 5
-  monstersToSpawn:
-  - monsterPrefab: {fileID: 8686422952614682872, guid: 5dce8737b46916048b2fb6bba0309c44, type: 3}
-    spawnChance: 6
-  - monsterPrefab: {fileID: 8686422952614682872, guid: bb3071da18cd709458577366ed26029a, type: 3}
-    spawnChance: 1
   objDraw: {fileID: 1562577608}
+  area: {fileID: 9146887595399688648, guid: 54a00214f5a8cc34680143dcf6f7a9e9, type: 3}
   player: {fileID: 1862440591}
 --- !u!4 &1562577607
 Transform:
@@ -3368,6 +3351,7 @@ MonoBehaviour:
   attackSpriteRight2: {fileID: 1883476118, guid: 45958acf06e9db44ab5ed182ff045136, type: 3}
   attackObj: {fileID: 2604491874809530430, guid: aee79337be94ec04b855dd68329dbdcc, type: 3}
   PLAYER_DAMAGE: 3
+  attackDelay: 0.5
 --- !u!81 &1862440592
 AudioListener:
   m_ObjectHideFlags: 0

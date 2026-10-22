@@ -47,7 +47,11 @@ MonoBehaviour:
   objectsToSpawn:
   - objectPrefab: {fileID: -8450852452469450838, guid: 15dd4916c921fd446a08d0d28335b7fc, type: 3}
     spawnChance: 8.3
-  monstersToSpawn: []
+  monstersToSpawn:
+  - monsterPrefab: {fileID: 8686422952614682872, guid: c26c173f0d9e7d04cb2a619a23e6a1b4, type: 3}
+    spawnChance: 18.3
+  - monsterPrefab: {fileID: 8686422952614682872, guid: 91cad3d09bb45d042ae447cc28b7adb4, type: 3}
+    spawnChance: 75.6
   floorTilesToSpawn:
   - floorTile: {fileID: 11400000, guid: e6bcd7d61b9e1ab4cb07066b9f40f3b6, type: 2}
     spawnChance: 100
