@@ -9,6 +9,7 @@ public class Bone : Projectile
         PROJECTILE_DIRECTION = Vector2.right;
         PROJECTILE_SPEED = 3f;
         PROJECTILE_DAMAGE = 10;
+        PROJECTILE_COLLISION_DELAY = 0f; // owner collider is ignored instead, so no delay needed
     }
 
     protected override void animateProjectile()
@@ -20,6 +21,7 @@ public class Bone : Projectile
     {
         Destroy(gameObject);
 
+        // NOTE: tags are case-sensitive. Make sure your Player is tagged exactly "player".
         if (collision.collider.CompareTag("player"))
         {
             HealthScript.RemoveHealth(PROJECTILE_DAMAGE);

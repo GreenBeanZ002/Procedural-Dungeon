@@ -102,7 +102,7 @@ public abstract class Projectile : MonoBehaviour
         transform.position = new Vector3(transform.position.x + movement.x, transform.position.y + movement.y, -0.2f);
     }
 
-    public virtual void summonProjectile(GameObject prefab, int count, Vector3 spawnPosition, Vector3 target, Sprite projectileSprite)
+    public virtual void summonProjectile(GameObject prefab, int count, Vector3 spawnPosition, Vector3 target, Sprite projectileSprite, Collider2D owner = null)
     {
         for (int i = 0; i < count; i++)
         {
@@ -110,6 +110,12 @@ public abstract class Projectile : MonoBehaviour
             Projectile spawnedScript = spawned.GetComponent<Projectile>();
             spawnedScript.PROJECTILE_DIRECTION = getDirection(spawnPosition, target);
             spawnedScript.GetComponent<SpriteRenderer>().sprite = projectileSprite;
+
+            if (owner != null)
+            {
+                Collider2D col = spawned.GetComponent<Collider2D>();
+                if (col != null) Physics2D.IgnoreCollision(col, owner);
+            }
         }
     }
 

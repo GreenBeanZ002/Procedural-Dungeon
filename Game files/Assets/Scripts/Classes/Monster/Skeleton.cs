@@ -25,6 +25,10 @@ public class Skeleton : Monster
     private Projectile projectileScript;
     [SerializeField]
     private Sprite projectileSprite;
+    [SerializeField] private float projectileSpawnOffset = 0.6f;
+    [SerializeField] private float attackCooldown = 2.5f;
+
+    private Collider2D ownCollider;
 
     protected override void SetDefaults()
     {
@@ -112,7 +116,7 @@ public class Skeleton : Monster
             Vector2 rotatedDir = Rotate(dir, angleDeg);
             Vector2Int offset = new Vector2Int(
                 Mathf.RoundToInt(rotatedDir.x * fleeTiles),
-                Mathf.RoundToInt(rotatedDir. y * fleeTiles)
+                Mathf.RoundToInt(rotatedDir.y * fleeTiles)
             );
             Vector2Int candidate = myGrid + offset;
 
@@ -170,20 +174,30 @@ public class Skeleton : Monster
     {
         base.Awake(); // make sure Monster's Awake() still runs (player assignment etc.)
         projectileScript = projectilePrefab.GetComponent<Projectile>();
+        ownCollider = GetComponent<Collider2D>();
     }
 
     protected override void attackPlayer()
     {
-        if (!isFleeing)
-        {
-            if (attackTimer <= 0f)
-            {
-                projectileScript.summonProjectile(projectilePrefab, 1, transform.position, player.position, projectileSprite);
-                attackTimer = 2f;
-            }
-            attackTimer -= Time.deltaTime;
-        }
+        if (isFleeing) return;
 
+        attackTimer -= Time.deltaTime;
+        if (attackTimer > 0f) return;
+
+        Vector2 origin = transform.position;
+        Vector2 dir = (Vector2)player.position - origin;
+        if (dir.sqrMagnitude < 0.0001f) dir = Vector2.right;
+        dir.Normalize();
+
+        // Spawn slightly ahead of the skeleton so the bone doesn't start inside it
+        Vector2 spawnPos = origin + dir * projectileSpawnOffset;
+
+        // Aim far past the player so the bone keeps traveling instead of
+        // pointing at a spot it has already reached when the player is close
+        Vector2 aimPoint = origin + dir * 20f;
+
+        projectileScript.summonProjectile(projectilePrefab, 1, spawnPos, aimPoint, projectileSprite, ownCollider);
+        attackTimer = attackCooldown;
     }
 
 }

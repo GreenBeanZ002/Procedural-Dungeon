@@ -20,13 +20,18 @@ public abstract class DungeonArea : MonoBehaviour
     public string AreaName => AREA_NAME;
 
     [SerializeField]
-    protected string LEVEL_COUNT;
-    public string LevelCount => LEVEL_COUNT;
+    protected string START_LEVEL;
+    public string StartLevel => START_LEVEL;
 
     [SerializeField]
-    protected bool AREa_DEFAULT;
+    protected string END_LEVEL;
 
-    public bool AreaDefault => AREa_DEFAULT;
+    public string EndLevel => END_LEVEL;
+
+    [SerializeField]
+    protected bool AREA_DEFAULT;
+
+    public bool AreaDefault => AREA_DEFAULT;
 
     [SerializeField]
     protected int BOSS_LEVEL;
