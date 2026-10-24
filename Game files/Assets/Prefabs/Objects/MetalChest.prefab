@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 3.5, y: 2.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -589316354031001511, guid: a0d3fbbc155eb404a87f827b40a48dfe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4831297a6e5003c47a8c2881843ee5d8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -120,18 +120,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.006094694, y: 0.012189269}
+  m_Offset: {x: 0.000083222985, y: -0.00040623546}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.32, y: 0.32}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8902967, y: 0.7805935}
+  m_Size: {x: 0.22559518, y: 0.21951902}
   m_EdgeRadius: 0
 --- !u!82 &2824930162558908564
 AudioSource:
@@ -244,9 +244,9 @@ MonoBehaviour:
   breakSound: {fileID: 2824930162558908564}
   shakeAmount: 0.1
   OBJECT_NAME: 
-  ICON: {fileID: -589316354031001511, guid: a0d3fbbc155eb404a87f827b40a48dfe, type: 3}
+  ICON: {fileID: 21300000, guid: 4831297a6e5003c47a8c2881843ee5d8, type: 3}
   HEALTH: 9
-  chestSprite: {fileID: -589316354031001511, guid: a0d3fbbc155eb404a87f827b40a48dfe, type: 3}
+  chestSprite: {fileID: 21300000, guid: 4831297a6e5003c47a8c2881843ee5d8, type: 3}
 --- !u!114 &5852685106736731266
 MonoBehaviour:
   m_ObjectHideFlags: 0
