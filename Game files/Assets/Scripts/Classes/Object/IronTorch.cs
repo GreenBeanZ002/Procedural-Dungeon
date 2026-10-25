@@ -10,4 +10,8 @@ public class IronTorch : WorldObject
         HEALTH = 30;
         ICON = torchSprite;
     }
+    protected override void DeathEvent()
+    {
+        return;
+    }
 }

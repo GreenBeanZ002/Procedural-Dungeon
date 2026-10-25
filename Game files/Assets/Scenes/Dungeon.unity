@@ -253,10 +253,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: -0.32815737
-    y: -0.40442654
-    width: 1.6563147
-    height: 1.8108652
+    x: 0
+    y: 0
+    width: 1
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -2474,7 +2474,7 @@ MonoBehaviour:
   startPos: {x: 0, y: 0}
   walkParameters: {fileID: 11400000, guid: f588ea5f7c736f54991176f9bc0a4e76, type: 2}
   objDraw: {fileID: 1562577608}
-  area: {fileID: 9146887595399688648, guid: 54a00214f5a8cc34680143dcf6f7a9e9, type: 3}
+  area: {fileID: 7485564678618894371, guid: 384de29bfdd0b6a448013d381c1dc2f9, type: 3}
   player: {fileID: 1862440591}
 --- !u!4 &1562577607
 Transform:

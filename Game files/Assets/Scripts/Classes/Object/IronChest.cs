@@ -10,4 +10,8 @@ public class IronChest : WorldObject
         HEALTH = 9;
         ICON = chestSprite;
     }
+    protected override void DeathEvent() 
+    {
+        return;
+    }
 }

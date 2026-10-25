@@ -11,4 +11,8 @@ public class Ribcage : WorldObject
         HEALTH = 2;
         ICON = ribcageSprite;
     }
+    protected override void DeathEvent()
+    {
+        return;
+    }
 }

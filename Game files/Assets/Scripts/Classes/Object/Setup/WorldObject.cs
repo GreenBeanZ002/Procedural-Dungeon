@@ -72,10 +72,13 @@ public abstract class WorldObject : MonoBehaviour
         {
             AudioSource.PlayClipAtPoint(breakSound.clip, transform.position, breakSound.volume);
         }
+        DeathEvent();
+        
 
         Destroy(gameObject);
     }
 
+    protected abstract void DeathEvent();
     private void DamageEffect()
     {
         if (currentDuration > 0)

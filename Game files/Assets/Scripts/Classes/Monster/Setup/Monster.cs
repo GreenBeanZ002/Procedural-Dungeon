@@ -221,6 +221,14 @@ public abstract class Monster : MonoBehaviour
         OnDrawGizmosSelectedExtra();
     }
 
+    public void SummonMultipleEnemies(Vector3 pos, int quantity, GameObject prefab)
+    {
+        for (int i = 0; i < quantity; i++)
+        {
+            Instantiate(prefab, pos, Quaternion.identity);
+        }
+    }
+
     protected virtual void OnDrawGizmosSelectedExtra() { }
 
     private void OnCollisionEnter2D(Collision2D collision)

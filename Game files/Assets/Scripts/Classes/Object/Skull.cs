@@ -11,4 +11,8 @@ public class Skull : WorldObject
         HEALTH = 2;
         ICON = skullSprite;
     }
+    protected override void DeathEvent()
+    {
+        return;
+    }
 }

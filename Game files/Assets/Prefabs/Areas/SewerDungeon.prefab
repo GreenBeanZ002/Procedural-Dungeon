@@ -47,6 +47,10 @@ MonoBehaviour:
   objectsToSpawn:
   - objectPrefab: {fileID: -8450852452469450838, guid: 15dd4916c921fd446a08d0d28335b7fc, type: 3}
     spawnChance: 8.3
+  - objectPrefab: {fileID: 3100297114112978431, guid: 4a0c5492a201f1f4798cf6b96f63cb88, type: 3}
+    spawnChance: 8.3
+  - objectPrefab: {fileID: 4417210326480254975, guid: 0923e81c636cd5d48a4c1628f19eea5c, type: 3}
+    spawnChance: 8.3
   monstersToSpawn:
   - monsterPrefab: {fileID: 8686422952614682872, guid: c26c173f0d9e7d04cb2a619a23e6a1b4, type: 3}
     spawnChance: 18.3

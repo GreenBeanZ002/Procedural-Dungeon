@@ -10,4 +10,8 @@ public class Crate: WorldObject
         HEALTH = 3;
         ICON = crateSprite;
     }
+    protected override void DeathEvent()
+    {
+        return;
+    }
 }
